@@ -9,6 +9,6 @@
 5. Βιβλιογραφία
 
 > [!IMPORTANT]
-> Για να μπορεσει να λειτουργησει το app.py πρεπει να γινει καλο dockerization
+> README.md still on progress
 
 
