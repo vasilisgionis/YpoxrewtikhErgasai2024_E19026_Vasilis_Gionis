@@ -14,6 +14,10 @@
 - λόγω προβλημάτων με την Date επέλέχτηκε η χρήση integer για τα date datas
 
 ### 2. Τεχνολογίες 
+- Python
+- Flask-PyMongo
+- MongoDB
+- Docker
 
 
 > [!IMPORTANT]
