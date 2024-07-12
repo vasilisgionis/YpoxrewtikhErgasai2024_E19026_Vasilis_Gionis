@@ -26,9 +26,12 @@
 - Το **Dockerfile.mongo** περιέχει όλες τις απαραίτητες εντολές για την δημιουργία του Docker Image της βάσης δεδομένων MongoDB
 - Το **docker-compose.yml** το οποίο έχει τις εντολές οι οποίες εκτελούν την εκκίνηση της Flask application και της βάσης μας.
 - Το **app.py** το οποίο είναι το βασικό αρχείο της εφαρμογής μας. Εκεί βρίσκονται όλες οι εντολές οι οποίες υλοποιούν τα διάφορα routes. Πιο συγκεκριμένα :
-- ```
-  * admin :( login(*POST* /admin/login), create doctor(*POST* /admin/doctor, delete doctor(*DELETE* /admin/doctor/<id του γιατρου προς διαγραφη>), update doctor(*PUT* /admin/doctor/<id του γιατρου προς ενημέρωση>), delete patient(*DELETE* /admin/patient/<id του ασθενη προς διαγραφη>)
-  ```
+  * admin :( login(*POST* /admin/login), create doctor(*POST* /admin/doctor), delete doctor(*DELETE* /admin/doctor/<id του γιατρου προς διαγραφη>), update doctor(*PUT* /admin/doctor/<id του γιατρου προς ενημέρωση>), delete patient(*DELETE* /admin/patient/<id του ασθενη προς διαγραφη>))
+  * doctor :( login(*POST* /doctor/login), appointments(*GET* /doctor/<id του γιατρου>/appointments), αλλαγή του κόστους του ραντεβού του(*PUT* /doctor/change_cost))
+  * patient :( register(*POST* /patient/register), login(*POST* /patient/login), ραντεβού με γιατρό(*POST* /patient/book_appointment), προβολή όλων των ραντεβού του(*GET* /patient/<id του ασθενούς>/appointments), προβολή συγκεκριμένου ραντεβού(*GET* /patient/appointment/<id του ραντεβού>), ακύρωση ραντεβού(*DELETE* /patient/cancel_appointment)
+- Τέλος το **requiriments.txt** περιλαμβάνει όλες τις βιβλιοθήκες που χρειαστήκαμε για την εφαρμογή.
+
+    
 
 > [!IMPORTANT]
 > README.md still on progress
