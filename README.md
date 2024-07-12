@@ -31,6 +31,23 @@
   * patient :( register(*POST* /patient/register), login(*POST* /patient/login), ραντεβού με γιατρό(*POST* /patient/book_appointment), προβολή όλων των ραντεβού του(*GET* /patient/<id του ασθενούς>/appointments), προβολή συγκεκριμένου ραντεβού(*GET* /patient/appointment/<id του ραντεβού>), ακύρωση ραντεβού(*DELETE* /patient/cancel_appointment)
 - Τέλος το **requiriments.txt** περιλαμβάνει όλες τις βιβλιοθήκες που χρειαστήκαμε για την εφαρμογή.
 
+### 4. Τρόπος εκτέλεσης
+Για την εκτέλεση της εφαρμογής θα χρειαστεί : 
+- να εγκαταστήσουμε τις βιβλιοθληκες από το requirements.txt 
+  ```
+  pip install -r requirements.txt
+  ```
+- με την χρήση του Docker Desktop πρέπει να βεβαιωθούμε ότι η MongoDB βάση μας λειτουργεί. Μπορούμε να χρησιμοποιήσουμε την παρακάτω εντολή στο cmd επίσης για μεγαλύτερη ευκολία
+  ```
+  docker-compose up --build
+  ```
+το οποίο θα εκτελέσει τα 2 containers που έχουμε δημιουργήσει 
+- έπειτα τρέχουμε το app.py (προσωπικά το τρέχω στο visual studio)
+  ```
+  python app.py
+  ```
+- εφόσον το terminal μας ενημερώνει ότι όλα κυλάνε ομαλά, μπορούμε με την χρήση του Postman να τεστάρουμε την λειτουργικότητα της εφαρμογής μας. 
+
     
 
 > [!IMPORTANT]
