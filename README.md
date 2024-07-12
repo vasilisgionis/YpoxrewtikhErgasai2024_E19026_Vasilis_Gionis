@@ -41,7 +41,7 @@
   ```
   docker-compose up --build
   ```
-το οποίο θα εκτελέσει τα 2 containers που έχουμε δημιουργήσει 
+  το οποίο θα εκτελέσει τα 2 containers που έχουμε δημιουργήσει 
 - έπειτα τρέχουμε το app.py (προσωπικά το τρέχω στο visual studio)
   ```
   python app.py
