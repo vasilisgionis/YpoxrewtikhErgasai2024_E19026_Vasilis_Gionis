@@ -1,4 +1,4 @@
-# Υποχρεωτική Άσκηση Πληροφοριακών Συστημάτων 2024
+ # Υποχρεωτική Άσκηση Πληροφοριακών Συστημάτων 2024
 > ΑΜ Ε19026 Βασίλης Γκιώνης 
 
 ## Περιεχόμενα 
@@ -52,9 +52,9 @@
 Προτεινόμενος τρόπος χρήσης είναι χρησιμοποιώντας την εφαρμογή Postman. Εφόσον τρέξουμε την εφαρμογή και υπάρξει σύνδεση μεταξύ server και database μπορουμε να χρησιμοποιήσουμε το link και να το εισάγουμε στο Postman για να κάνουμε διάφορες διαδικασίες. Πιο συγκεκριμένα θα αναφερθούν οι εντολές για τον admin, έναν γιατρό και έναν ασθενή. Για ευκολία το link http://127.0.0.1:5000 θα το ονομάσω Α. 
 - **Admin**
   - Login :
-    Πάμε Postman και παταμε **POST**
-    Στο URL βάζουμε Α/admin/login
-    Έπειτα πάμε στο body, JSON format και γράφουμε
+    Πάμε Postman και παταμε **POST**.
+    Στο URL βάζουμε Α/admin/login.
+    Έπειτα πάμε στο body, JSON format και γράφουμε :
     ```
     {
      "username": "admin",
@@ -62,9 +62,9 @@
     }
     ```
   - Create doctor :
-    Πάμε Postman και παταμε **POST**
-    Στο URL βάζουμε Α/admin/doctor
-    Έπειτα πάμε στο body, JSON format και γράφουμε
+    Πάμε Postman και παταμε **POST**.
+    Στο URL βάζουμε Α/admin/doctor.
+    Έπειτα πάμε στο body, JSON format και γράφουμε :
     ```
     {
      "first_name": "Panayiotis",
@@ -76,10 +76,128 @@
      "appointment_cost": 100
     }
     ```
-  -
+  - Update doctor :
+    Πάμε Postman και παταμε **PUT**.
+    Στο URL βάζουμε Α/admin/doctor/<id>.
+    Έπειτα πάμε στο body, JSON format και γράφουμε :
+    ```
+    {
+     "first_name": "Panagiotis",
+     "last_name": "karamolegkos",
+     "email": "karmolegkos@.com",
+     "username": "sonem",
+     "password": "12345",
+     "specialization": "Cardiologist",
+     "appointment_cost": 200
+    }
+    ```
+  - Delete doctor :
+    Πάμε Postman και παταμε **DELETE**.
+    Στο URL βάζουμε Α/admin/doctor/<id>.
+    Έπειτα πάμε στο body, JSON format και γράφουμε :
+    ```
+    {
+     "username":"sonem"
+    }
+    ```
+  - Delete patient :
+    Πάμε Postman και παταμε **DELETE**.
+    Στο URL βάζουμε Α/admin/patient/<id>.
+    Έπειτα πάμε στο body, JSON format και γράφουμε :
+    ```
+    {
+     "username":"vasillisgio"
+    }
+    ```
+- **Doctor**
+  - Login :
+    Πάμε Postman και παταμε **POST**.
+    Στο URL βάζουμε Α/doctor/login
+    Έπειτα πάμε στο body, JSON format και γράφουμε :
+    ```
+    {
+     "username": "sonem",
+     "password": "12345"
+    }
+     ```
+  - Προβολή των ραντεβού του :
+    Πάμε Postman και παταμε **GET**.
+    Στο URL βάζουμε Α/doctor/<id>/appointments
+    
+  - Change Cost :
+    Πάμε Postman και παταμε **PUT**.
+    Στο URL βάζουμε Α/doctor/change_cost
+    Έπειτα πάμε στο body, JSON format και γράφουμε :
+    ```
+    {
+     "username":"sonem",
+     "new_cost":210
+    }
+    ```
+- **Patient**
+  - Register :
+    Πάμε Postman και παταμε **POST**.
+    Στο URL βάζουμε Α/patient/register
+    Έπειτα πάμε στο body, JSON format και γράφουμε :
+    ```
+    {
+     "first_name": "vasilis",
+     "last_name": "gionis",
+     "email": "vasillisgionis@gmail.com",
+     "amka": "E19026",
+     "birthdate": "2000-09-06",
+     "username": "vasillisgio",
+     "password": "54321"
+    }
+    ```
+  - Login :
+    Πάμε Postman και παταμε **POST**.
+    Στο URL βάζουμε Α/patient/login
+    Έπειτα πάμε στο body, JSON format και γράφουμε :
+    ```
+    {
+     "username":"vasillisgio",
+     "password":"54321"
+    }
+    ```
+  - Ραντεβού με γιατρό
+    Πάμε Postman και παταμε **POST**.
+    Στο URL βάζουμε Α/patient/book_appointment
+    Έπειτα πάμε στο body, JSON format και γράφουμε :
+    ```
+    {
+     "doctor_id": "<doctor_id>",
+     "patient_name": "Vasilis Gionis",
+     "date": 20240710,
+     "time": 1000,
+     "reason": "Checkup",
+     "patient_id": "<patient_id>"
+    }
+    ```
+    (τα date και time είναι σε int όπως αναφέρθηκε και στην ενότητα 1)
+
+  - Προβολή ραντεβού (specific and not specific)
+    Πάμε Postman και παταμε **GET**.
+    Στο URL βάζουμε Α/patient/<id>/appointments για τα ραντεβού του ασθενή.
+    Και Α/patient/appointment/<id> για ένα συγκεκριμένο ραντεβού
+
+  - Ακύρωση ραντεβού :
+    Πάμε Postman και παταμε **DELETE**.
+    Στο URL βάζουμε Α/patient/cancel_appointment
+    Έπειτα πάμε στο body, JSON format και γράφουμε :
+    ```
+    {
+     "appointment_id": "<appointment_id>"
+    }
+    ```
+### 6. Βιβλιογραφία 
 
     
+    
 
+
+
+    
 > [!IMPORTANT]
 > README.md still on progress
 
