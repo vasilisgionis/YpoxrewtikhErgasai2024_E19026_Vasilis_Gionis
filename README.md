@@ -1,5 +1,5 @@
- # Υποχρεωτική Άσκηση Πληροφοριακών Συστημάτων 2024
-> ΑΜ Ε19026 Βασίλης Γκιώνης 
+ # Υποχρεωτική Άσκηση Πληροφοριακών Συστημάτων Σεπτεμβρίου 2024
+> ΑΜ Ε19243 Ευθυμία Παπαναστασοπούλου
 
 ## Περιεχόμενα 
 1. Επιπλέον παραδοχές
@@ -10,24 +10,31 @@
 6. Βιβλιογραφία
 
 ### 1. Επιπλέον παραδοχές
-- για δική μας ευκολία οι κωδικοί αποθηκεύονται σε απλό text format
-- λόγω προβλημάτων με την Date επέλέχτηκε η χρήση integer για τα date datas
+Για την εργασία χρησιμοποίηθηκαν CSS formats και HTML για την διεπαφή μεταξύ χρήστη (και admin) με το σύστημα. 
 
 ### 2. Τεχνολογίες 
 - Python
 - Flask-PyMongo
 - MongoDB
+- CSS formats
+- HTML
 - Docker
 
 ### 3. Περιγραφή των αρχείων 
+- Ο φάκελος **eventapp** ο οποίος περιλαμβάνει όλα τα files και folders που περιγράφονται παρακάτω, χρησιμοποιείται για την καλύτερη οργάνωση του κωδίκα
 - Ο φάκελος **data** περιλαμβάνει όλα τα απαραίτητα δεδομένα όπως ζητήθηκε από την εκφώνηση σε περίπτωση που το container διαγραφεί
 - Το **Dockerfile** περιέχει όλα τα απαραίτητα δεδομένα για τη δημιουργία του DOcker Image του Flask application
 - Το **Dockerfile.mongo** περιέχει όλες τις απαραίτητες εντολές για την δημιουργία του Docker Image της βάσης δεδομένων MongoDB
 - Το **docker-compose.yml** το οποίο έχει τις εντολές οι οποίες εκτελούν την εκκίνηση της Flask application και της βάσης μας.
 - Το **app.py** το οποίο είναι το βασικό αρχείο της εφαρμογής μας. Εκεί βρίσκονται όλες οι εντολές οι οποίες υλοποιούν τα διάφορα routes. Πιο συγκεκριμένα :
-  * admin :( login(*POST* /admin/login), create doctor(*POST* /admin/doctor), delete doctor(*DELETE* /admin/doctor/<id του γιατρου προς διαγραφη>), update doctor(*PUT* /admin/doctor/<id του γιατρου προς ενημέρωση>), delete patient(*DELETE* /admin/patient/<id του ασθενη προς διαγραφη>))
-  * doctor :( login(*POST* /doctor/login), appointments(*GET* /doctor/<id του γιατρου>/appointments), αλλαγή του κόστους του ραντεβού του(*PUT* /doctor/change_cost))
-  * patient :( register(*POST* /patient/register), login(*POST* /patient/login), ραντεβού με γιατρό(*POST* /patient/book_appointment), προβολή όλων των ραντεβού του(*GET* /patient/<id του ασθενούς>/appointments), προβολή συγκεκριμένου ραντεβού(*GET* /patient/appointment/<id του ραντεβού>), ακύρωση ραντεβού(*DELETE* /patient/cancel_appointment)
+    * o **admin** ο οποίος μπορεί να κάνει login μέσω του route **Login** το οποίο επιτρέπει σε αυτόν (και τους χρήστες εφόσον έχουν κάνει register) να συνδεθεί στην πλατφόρμα του eventapp στέλνοντας τον στο **admin_dashboard** όπου εκεί μπορεί να πραγματοποιήσει οποιαδήποτε από τις παρακάτω ενέργειες επιθυμεί : 
+        1. <ins>Delete User</ins>: η οποία ενέργεια επιτρέπει στον admin να διαγράψει έναν χρήστη από την βάση δεδομένων
+        2. <ins>Delete Event</ins>: αυτή η ενέργεια επιτρέπει στον admin να διαγράψει οποιοδήποτε event επιθυμεί
+        3. <ins>όλες τις εντολές που μπορεί να κάνει και ένας απλός user</ins>
+    * ο **user** μπορεί να κάνει register για να εγγραφεί στο σύστημα μέσω του **Register** route και έπειτα να κάνει login με το username του και το password του. Έπειτα μεταβιβάζεται στο **user_dashboard** όπου εκεί πέρα με την σειρά του μπορέι να εκτελέσει τις παρακάτω ενέργειες :
+        1. <ins>Search Events</ins>: ο χρήστης μπορεί να αναζητήσει οποιοδήποτε event, και επίσης μπορεί να δει όλα τα events απευθείας 
+        2. <ins>Create Event</ins>: ο χρήστης (και κατεπέκταση ο admin) μπορεί να δημιουργήσει όποιο event επιθυμεί με μόνη προϋπόθεση η ημερομηνία του event να είναι μετά την παρούσα
+        3. <ins>Update Event</ins>: ο χρήστης μετά την δημιουργία ενός event κατεπέκταση μπορεί να ενημερώσει το event που έχει φτιάξει ο ίδιος ή μπορεί να το διαγράψει 
 - Τέλος το **requiriments.txt** περιλαμβάνει όλες τις βιβλιοθήκες που χρειαστήκαμε για την εφαρμογή.
 
 ### 4. Τρόπος εκτέλεσης
@@ -36,164 +43,63 @@
   ```
   pip install -r requirements.txt
   ```
+
 - με την χρήση του Docker Desktop πρέπει να βεβαιωθούμε ότι η MongoDB βάση μας λειτουργεί. Μπορούμε να χρησιμοποιήσουμε την παρακάτω εντολή στο cmd επίσης για μεγαλύτερη ευκολία
   ```
   docker-compose up --build
   ```
+
   το οποίο θα εκτελέσει τα 2 containers που έχουμε δημιουργήσει 
-- έπειτα τρέχουμε το app.py (προσωπικά το τρέχω στο visual studio)
+
+- έπειτα τρέχουμε το app.py
   ```
   python app.py
   ```
+
 - εφόσον το terminal μας ενημερώνει ότι όλα κυλάνε ομαλά, μπορούμε με την χρήση του Postman να τεστάρουμε την λειτουργικότητα της εφαρμογής μας.
 
 ### 5. Τρόπος Χρήσης
-Προτεινόμενος τρόπος χρήσης είναι χρησιμοποιώντας την εφαρμογή Postman. Εφόσον τρέξουμε την εφαρμογή και υπάρξει σύνδεση μεταξύ server και database μπορουμε να χρησιμοποιήσουμε το link και να το εισάγουμε στο Postman για να κάνουμε διάφορες διαδικασίες. Πιο συγκεκριμένα θα αναφερθούν οι εντολές για τον admin, έναν γιατρό και έναν ασθενή. Για ευκολία το link http://127.0.0.1:5000 θα το ονομάσω Α. 
-- **Admin**
-  - Login :
-    Πάμε Postman και παταμε **POST**.
-    Στο URL βάζουμε Α/admin/login.
-    Έπειτα πάμε στο body, JSON format και γράφουμε :
-    ```
-    {
-     "username": "admin",
-     "password":"@dm1n"
-    }
-    ```
-  - Create doctor :
-    Πάμε Postman και παταμε **POST**.
-    Στο URL βάζουμε Α/admin/doctor.
-    Έπειτα πάμε στο body, JSON format και γράφουμε :
-    ```
-    {
-     "first_name": "Panayiotis",
-     "last_name": "karamolegkos",
-     "email": "karmolegkos@.com",
-     "username": "sonem",
-     "password": "12345",
-     "specialization": "Cardiologist",
-     "appointment_cost": 100
-    }
-    ```
-  - Update doctor :
-    Πάμε Postman και παταμε **PUT**.
-    Στο URL βάζουμε Α/admin/doctor/<id>.
-    Έπειτα πάμε στο body, JSON format και γράφουμε :
-    ```
-    {
-     "first_name": "Panagiotis",
-     "last_name": "karamolegkos",
-     "email": "karmolegkos@.com",
-     "username": "sonem",
-     "password": "12345",
-     "specialization": "Cardiologist",
-     "appointment_cost": 200
-    }
-    ```
-  - Delete doctor :
-    Πάμε Postman και παταμε **DELETE**.
-    Στο URL βάζουμε Α/admin/doctor/<id>.
-    Έπειτα πάμε στο body, JSON format και γράφουμε :
-    ```
-    {
-     "username":"sonem"
-    }
-    ```
-  - Delete patient :
-    Πάμε Postman και παταμε **DELETE**.
-    Στο URL βάζουμε Α/admin/patient/<id>.
-    Έπειτα πάμε στο body, JSON format και γράφουμε :
-    ```
-    {
-     "username":"vasillisgio"
-    }
-    ```
-- **Doctor**
-  - Login :
-    Πάμε Postman και παταμε **POST**.
-    Στο URL βάζουμε Α/doctor/login
-    Έπειτα πάμε στο body, JSON format και γράφουμε :
-    ```
-    {
-     "username": "sonem",
-     "password": "12345"
-    }
-     ```
-  - Προβολή των ραντεβού του :
-    Πάμε Postman και παταμε **GET**.
-    Στο URL βάζουμε Α/doctor/<id>/appointments
-    
-  - Change Cost :
-    Πάμε Postman και παταμε **PUT**.
-    Στο URL βάζουμε Α/doctor/change_cost
-    Έπειτα πάμε στο body, JSON format και γράφουμε :
-    ```
-    {
-     "username":"sonem",
-     "new_cost":210
-    }
-    ```
-- **Patient**
-  - Register :
-    Πάμε Postman και παταμε **POST**.
-    Στο URL βάζουμε Α/patient/register
-    Έπειτα πάμε στο body, JSON format και γράφουμε :
-    ```
-    {
-     "first_name": "vasilis",
-     "last_name": "gionis",
-     "email": "vasillisgionis@gmail.com",
-     "amka": "E19026",
-     "birthdate": "2000-09-06",
-     "username": "vasillisgio",
-     "password": "54321"
-    }
-    ```
-  - Login :
-    Πάμε Postman και παταμε **POST**.
-    Στο URL βάζουμε Α/patient/login
-    Έπειτα πάμε στο body, JSON format και γράφουμε :
-    ```
-    {
-     "username":"vasillisgio",
-     "password":"54321"
-    }
-    ```
-  - Ραντεβού με γιατρό
-    Πάμε Postman και παταμε **POST**.
-    Στο URL βάζουμε Α/patient/book_appointment
-    Έπειτα πάμε στο body, JSON format και γράφουμε :
-    ```
-    {
-     "doctor_id": "<doctor_id>",
-     "patient_name": "Vasilis Gionis",
-     "date": 20240710,
-     "time": 1000,
-     "reason": "Checkup",
-     "patient_id": "<patient_id>"
-    }
-    ```
-    (τα date και time είναι σε int όπως αναφέρθηκε και στην ενότητα 1)
+Στον τρόπο χρήσης της εφαρμογής με το που εκτελέσουμε την εντολη 
+```
+python app.py
+```
+μεταβιβαζόμαστε στην διεύθυνση που αναγράφεται στο λειτουργικό μας και εκέι βρισκόμαστε στην αρχική οθόνη του eventapp
 
-  - Προβολή ραντεβού (specific and not specific)
-    Πάμε Postman και παταμε **GET**.
-    Στο URL βάζουμε Α/patient/<id>/appointments για τα ραντεβού του ασθενή.
-    Και Α/patient/appointment/<id> για ένα συγκεκριμένο ραντεβού
+![alt text](image.png)
 
-  - Ακύρωση ραντεβού :
-    Πάμε Postman και παταμε **DELETE**.
-    Στο URL βάζουμε Α/patient/cancel_appointment
-    Έπειτα πάμε στο body, JSON format και γράφουμε :
-    ```
-    {
-     "appointment_id": "<appointment_id>"
-    }
-    ```
+από εκείνο το σημείο έχουμε 2 επιλογές : 
+* είτε κάνουμε login ως κάποιος από τους υπαρκτούς users (username : mia, password: mia), είτε ως admin (username: admin, password: admin321)
+* είτε κάνουμε register ως κάποιος νέος user 
+
+**Login**
+
+![alt text](image-1.png)
+
+εδώ βάζουμε τα στοιχεία μας και μεταβιβαζόμαστε στο αντίστοιχο dashboard
+
+**Admin Dashboard**
+![alt text](image-2.png)
+![alt text](image-4.png)
+![alt text](image-5.png)
+
+Στο συγκεκριμένο dashboard που ανήκει στον admin παρατηρούμε όλα τα commands που μπορεί να εκτελέσει. Πιο συγκεκριμένα μπορεί να δει όλους τους χρήστες και να διαγράψει όποιον θέλει , μπορεί να ψάξει οποιοδήποτε event επιθυμεί στο search, να δει όλα τα events απευθείας, να διαγράψει οποιοδήποτε event θέλει, να κανει update μονάχα αυτά που έχει δημιουργήσει ο ίδιος και τέλος να κατασκευάσει ένα νέο event. 
+
+**User Dashboard**
+![alt text](image-6.png)
+![alt text](image-7.png)
+![alt text](image-8.png)
+
+Βάζοντας το username και το password του user μεταβιβαζόμαστε στο dashboard του χρήστη και παρατηρούμε ότι μπορεί να εκτελέσει τις ίδιες ενέργειες με τον admin, πλην της διαγραφής άλλων χρηστών και άλλων event. 
+
+Άμα πατήσουμε το κουμπί go back to home και έπειτα πατήσουμε το κουμπί register
+
+![alt text](image-9.png)
+
+μεταβιβαζόμαστε στην φόρμα εγγραφής για τον νέο χρήστη και όταν τα στοιχεία δηλωθούν ο νεός χρήστης είναι έτοιμος να χρησιμοποιήσει το eventapp !
 ### 6. Βιβλιογραφία 
 - Διαφάνειες εργαστηριών
-- GeeksForGeeks
-- StackOverflow
 - Youtube 
+- StackOverflow
+- GeeksForGeeks
 
-> [!NOTE]
-> Υπάρχουν όπως θα δείτε μερικές αλλαγές στις εντολές από τις εντολές που υπάρχουν στην εκφώνηση της άσκησης, αυτή η αλλαγή έγινε λόγω της εξεταστικής και άλλων χρωστούμενων μαθημάτων οποότε προσπάθησα να κάνω την εργασία όσο περισσότερο λειτουργική μπορούσα μέσα στο χρόνο που είχα. Πιστεύω ότι η εργασία που έχετε μπροστά σας ικανοποιεί όλα τα ζητήματα της άσκησης. Ευχαριστώ πολύ για την κατανόηση 
+
